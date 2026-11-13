@@ -16,6 +16,7 @@ Agent가 구현을 완료한 순간은 작업의 끝이 아니다. Human의 검�
 - [02 — System Thinking](docs/02-system-thinking.md) — Problem, Boundary, Responsibility, Role, Collaboration, Data Flow
 - [03 — Unknown Unknowns](docs/03-unknown-unknowns.md) — Question First, Tool Second와 Evidence 기반 탐색
 - [04 — Engineering Done](docs/04-engineering-done.md) — Slice Loop, Human Validation, Definition of Done
+- [05 — Use Case Flows & Reliable Outcomes](docs/05-use-case-flows-and-reliability.md) — Alternative/Exception Flow, Postcondition, 멱등성, Stateless, PRG, SSE 및 상태 복구
 
 ## Core Loop
 
