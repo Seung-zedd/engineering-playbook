@@ -93,3 +93,47 @@ Code → Data → Component → System → Problem
 ```
 
 > **A good engineer can zoom out to understand why the system exists, and zoom in to prove how it actually works.**
+
+## Use Case — Actor와 System 사이의 Black Box
+
+Use Case는 **Actor가 목표를 달성하기 위해 시스템과 상호작용하는 과정**을 외부 관찰 가능 행동 중심으로 기술한다.
+
+- **Problem:** 어떤 어려움을 해결하려는가?
+- **Goal:** Actor가 도달하려는 상태는 무엇인가?
+- **Use Case:** Actor와 System이 어떤 상호작용으로 목표를 달성하는가?
+
+Use Case는 내부 컴포넌트와 알고리즘을 나열하는 구현 설계서가 아니다. 단, **외부에서 관찰 가능한 시스템의 응답**은 Main Success Scenario에 포함된다.
+
+### 기본 구성 요소
+
+| 요소 | 의미 |
+| --- | --- |
+| Actor | 목표를 가진 상호작용 주체 |
+| Goal | Actor가 달성하려는 목적 |
+| Trigger | 상호작용을 시작하게 하는 사건 |
+| Precondition | 해당 Use Case가 시작되기 전에 성립해야 하는 조건 |
+| Main Success Scenario | 정상 경로의 Actor–System 상호작용 |
+| Result | 실행 과정에서 생성되거나 반환된 결과물 |
+| Success Postcondition | 정상 종료 후 보장되어야 하는 조건 |
+
+Precondition은 **애플리케이션 프로세스의 시작 조건**과 다르다. 예를 들어 애플리케이션은 이미 실행 중이지만 특정 작업을 시작하려면 사용자의 권한이 필요할 수 있다.
+
+### Result ≠ Success Postcondition
+
+일반적인 정보 등록 기능을 예로 들자.
+
+```text
+Actor: Authorized User
+Goal: 새로운 항목을 등록한다.
+Precondition: 사용자가 등록 권한을 갖는다.
+Result: "등록 성공"이라는 메시지가 표시된다.
+Success Postcondition: 항목이 실제로 저장되어 조회할 수 있다.
+```
+
+화면에는 성공 메시지가 표시됐지만 실제 데이터가 저장되지 않았다면 **Result는 존재하지만 Success Postcondition은 미충족**이다. 따라서 Use Case가 성공했다고 판단할 수 없다.
+
+> **Success Response ≠ Successful Outcome.**
+
+Postcondition은 반드시 영속 상태 변경을 의미하지 않는다. 정보 조회처럼 외부 응답 자체가 Goal인 경우에도 성공 후 성립할 조건을 기술할 수 있다.
+
+이 구분은 [Engineering Done](04-engineering-done.md)의 실제 상태 관측과 검증 원칙으로 이어진다.
