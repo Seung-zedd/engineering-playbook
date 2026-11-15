@@ -41,6 +41,43 @@ Payment Use Case
 | 검색 서비스 장애 발생 | Exception | 예외 처리 필요 |
 | 장애 복구 후 검색 결과 제공 | Exception 후 복구 | 최종 Goal 달성 가능 |
 
+### Use Case 간 관계: `«include»`, `«extend»`, Generalization
+
+Flow는 **하나의 Use Case 내부 진행 경로**를 설명하고, Relationship은 **서로 다른 Use Case 사이의 구조적 관계**를 설명한다. `include`와 `extend`는 Alternative/Exception Flow의 다른 이름이 아니다.
+
+| 관계 | 핵심 의미 | 판단 기준 |
+| --- | --- | --- |
+| `«include»` | 기본 Use Case가 다른 Use Case의 행위를 필수적으로 포함 | 매번 수행되는 공통 행위인가? |
+| `«extend»` | 조건에 따라 독립적인 기본 Use Case에 추가 행위를 확장 | 특정 조건/선택에서만 추가되는 행위인가? |
+| Generalization | 특수 Use Case가 일반 Use Case의 공통 특성을 상속·구체화 | 공통 목표·행위의 일반형과 구체형 관계인가? |
+
+**`«include»`와 Precondition은 다르다.**
+
+- **Precondition:** Use Case를 시작하기 전에 참이어야 하는 조건. 예: 개인화 검색을 시작할 때 사용자가 이미 인증된 상태여야 한다.
+- **`«include»`:** Use Case 수행 과정에서 매번 포함되는 별도의 행위. 예: 매번 인증 절차 자체를 수행하는 것이 해당 Use Case의 필수 행위라면 인증 Use Case를 포함할 수 있다.
+
+즉, 필수성이라는 공통점만으로 둘을 동일시하면 안 된다. 이미 충족되어 있어야 하는 조건인지, 실행 중 수행해야 하는 행위인지 구분한다.
+
+**관계 방향(UML 점선 화살표):**
+
+- `include`: 포함하는 Base Use Case → 포함되는 Use Case
+- `extend`: 확장하는 Extension Use Case → 확장 대상 Base Use Case
+- Generalization: 특수 Use Case → 일반 Use Case (속이 빈 삼각형이 일반 Use Case를 향함)
+
+**예시와 판단:**
+
+- 관광객이 검색 결과 번역을 선택적으로 요청한다면, 번역은 검색 Use Case를 조건부로 확장하는 `«extend»` 후보가 된다.
+- 관광지 검색과 축제 검색이 공통적인 관광 콘텐츠 검색 목표·행위를 구체화한다면 Generalization을 검토할 수 있다.
+- 단순히 내부 처리 단계라는 이유만으로 별도 Use Case를 만들거나 `«include»`를 남발하지 않는다. 별도 Use Case는 Actor-System 상호작용으로 의미 있게 식별되는 행위인지 검토한다.
+
+> **Include = 필수 행위 재사용. Extend = 조건부 행위 확장. Generalization = 공통 행위의 특수화.**
+
+#### 다음 세션 질문 — 미해결
+
+관광객이 관광 정보를 검색할 때 시스템은 반드시 검색 결과에 출처 정보를 함께 제공해야 한다.
+
+이때 출처 제공을 `«include»` 관계로 모델링하는 것이 적절한가? 판단할 때는 **필수성뿐 아니라 출처 제공이 독립적인 Actor-System 상호작용으로 정의될 만한 별도 Use Case인지**도 검토한다.
+
 ## Goal / Postcondition / Invariant
 
 결제의 Goal은 단순히 POST를 보내는 것이 아니라 **구매를 유효하게 완료하는 것**이다.
