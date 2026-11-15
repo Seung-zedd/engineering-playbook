@@ -22,6 +22,25 @@ Payment Use Case
 
 경로에서 예외가 발생했다는 사실과 최종 성공 여부는 별도로 평가한다.
 
+
+### 하나의 Use Case를 구성하는 Flow
+
+하나의 Use Case 명세에는 대표 정상 경로와 필요한 분기 경로를 함께 기술할 수 있다.
+
+- **Main Success Scenario:** Actor의 Goal을 달성하는 대표적인 정상 경로.
+- **Alternative Flow:** 정상적으로 예상 가능한 다른 유효 경로. Actor의 Goal을 달성하지 못하더라도 시스템이 책임을 정상 수행한 결과일 수 있다(예: 검색 결과 0건을 정확히 안내).
+- **Exception Flow:** 정상적인 진행을 방해하는 예외 상황에 대응하는 경로. 복구 후 Goal을 달성할 수도 있고, 실패 종료할 수도 있다.
+
+따라서 `Actor Goal Failure ≠ Exception Flow`이며, `Exception Occurrence ≠ Use Case Failure`다. Goal 달성 여부와 Flow 유형은 별도로 판단한다. 분류 관행은 명세 기법에 따라 다를 수 있으며, 모든 Use Case에 Alternative/Exception Flow가 반드시 존재하는 것은 아니다.
+
+| 상황 | Flow 분류 예시 | 시스템 책임 |
+| --- | --- | --- |
+| 검색 결과를 정상적으로 제공 | Main Success | 정상 이행 |
+| 검색 결과 0건을 정확히 안내 | Alternative | 정상 이행 |
+| 모호한 질의에 추가 조건 요청 | Alternative | 정상 이행 |
+| 검색 서비스 장애 발생 | Exception | 예외 처리 필요 |
+| 장애 복구 후 검색 결과 제공 | Exception 후 복구 | 최종 Goal 달성 가능 |
+
 ## Goal / Postcondition / Invariant
 
 결제의 Goal은 단순히 POST를 보내는 것이 아니라 **구매를 유효하게 완료하는 것**이다.
